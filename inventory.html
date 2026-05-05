@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aleja Blower - Inventory</title>
+    <link rel="stylesheet" href="../styles/inventory.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-wind"></i> Aleja Blower</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item" data-page="dashboard">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </li>
+                <li class="nav-item" data-page="pos">
+                    <i class="fas fa-cash-register"></i> Point of Sale
+                </li>
+                <li class="nav-item" data-page="products">
+                    <i class="fas fa-box"></i> Products
+                </li>
+                <li class="nav-item active" data-page="inventory">
+                    <i class="fas fa-warehouse"></i> Inventory
+                </li>
+                <li class="nav-item" data-page="sales">
+                    <i class="fas fa-receipt"></i> Sales Records
+                </li>
+                <li class="nav-item" data-page="reports">
+                    <i class="fas fa-chart-bar"></i> Reports
+                </li>
+                <li class="nav-item logout-item" id="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <h1>Inventory Management</h1>
+                </div>
+                <div class="header-right">
+                    <div class="date-time">
+                        <span id="current-date"></span>
+                        <span id="current-time"></span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Inventory Stats -->
+            <section class="inventory-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-boxes"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="total-products">0</h3>
+                        <p>Total Products</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-cubes"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="total-stock">0</h3>
+                        <p>Total Inventory</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="low-stock-count">0</h3>
+                        <p>Low Stock Items</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-peso-sign"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="inventory-value">₱0</h3>
+                        <p>Inventory Value</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Inventory Controls -->
+            <section class="inventory-controls">
+                <div class="controls-left">
+                    <button class="btn btn-primary" onclick="openAddProductModal()">
+                        <i class="fas fa-plus"></i>
+                        Add Product
+                    </button>
+                    <button class="btn btn-secondary" onclick="exportInventory()">
+                        <i class="fas fa-download"></i>
+                        Export
+                    </button>
+                    <button class="btn btn-secondary" onclick="refreshInventory()">
+                        <i class="fas fa-sync-alt"></i>
+                        Refresh
+                    </button>
+                                    </div>
+                <div class="controls-right">
+                    <div class="search-box">
+                        <input type="text" id="search-input" placeholder="Search products...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <select id="category-filter" class="filter-select">
+                        <option value="">All Categories</option>
+                    </select>
+                    <select id="stock-filter" class="filter-select">
+                        <option value="">All Stock Levels</option>
+                        <option value="low">Low Stock (≤10)</option>
+                        <option value="out">Out of Stock</option>
+                        <option value="available">Available</option>
+                    </select>
+                </div>
+            </section>
+
+            <!-- Inventory Table -->
+            <section class="inventory-table-section">
+                <div class="table-container">
+                    <table class="inventory-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Product Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Stock Quantity</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="inventory-tbody">
+                            <tr>
+                                <td colspan="7" class="loading">Loading inventory...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Add/Edit Product Modal -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Add Product</h2>
+                <button class="close-btn" onclick="closeProductModal()">&times;</button>
+            </div>
+            <form id="product-form">
+                <div class="form-group">
+                    <label for="product-name">Product Name *</label>
+                    <input type="text" id="product-name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="product-category">Category *</label>
+                    <select id="product-category" name="category_id" required>
+                        <option value="">Select Category</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="product-price">Price *</label>
+                    <input type="number" id="product-price" name="price" step="0.01" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="product-stock">Stock Quantity *</label>
+                    <input type="number" id="product-stock" name="stock_quantity" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="product-description">Description</label>
+                    <textarea id="product-description" name="description" rows="3"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeProductModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="delete-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Confirm Delete</h2>
+                <button class="close-btn" onclick="closeDeleteModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete "<span id="delete-product-name"></span>"?</p>
+                <p class="warning">This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeDeleteModal()">Cancel</button>
+                <button class="btn btn-danger" onclick="confirmDelete()">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stock Update Modal -->
+    <div id="stock-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Update Stock</h2>
+                <button class="close-btn" onclick="closeStockModal()">&times;</button>
+            </div>
+            <form id="stock-form">
+                <div class="form-group">
+                    <label>Product</label>
+                    <input type="text" id="stock-product-name" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Current Stock</label>
+                    <input type="text" id="current-stock" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="stock-operation">Operation</label>
+                    <select id="stock-operation" name="operation">
+                        <option value="add">Add Stock</option>
+                        <option value="subtract">Remove Stock</option>
+                        <option value="set">Set Stock</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="stock-quantity">Quantity *</label>
+                    <input type="number" id="stock-quantity" name="quantity" min="0" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeStockModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Update Stock</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    
+    <script src="../scripts/inventory.js"></script>
+</body>
+</html>

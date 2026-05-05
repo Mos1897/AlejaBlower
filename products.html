@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aleja Blower - Products</title>
+    <link rel="stylesheet" href="../styles/products.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-wind"></i> Aleja Blower</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item" data-page="dashboard">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </li>
+                <li class="nav-item" data-page="pos">
+                    <i class="fas fa-cash-register"></i> Point of Sale
+                </li>
+                <li class="nav-item active" data-page="products">
+                    <i class="fas fa-box"></i> Products
+                </li>
+                <li class="nav-item" data-page="inventory">
+                    <i class="fas fa-warehouse"></i> Inventory
+                </li>
+                <li class="nav-item" data-page="sales">
+                    <i class="fas fa-receipt"></i> Sales Records
+                </li>
+                <li class="nav-item" data-page="reports">
+                    <i class="fas fa-chart-bar"></i> Reports
+                </li>
+                <li class="nav-item logout-item" id="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <h1>Product Management</h1>
+                <div class="header-actions">
+                    <div class="date-time">
+                        <span id="current-date"></span>
+                        <span id="current-time"></span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Products Content -->
+            <div class="page-content">
+                <!-- Search and Filter -->
+                <div class="search-section">
+                    <div class="search-bar">
+                        <input type="text" id="product-search" placeholder="Search products..." class="search-input">
+                        <button class="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <div class="filter-section">
+                        <select id="category-filter" class="filter-select">
+                            <option value="">All Categories</option>
+                            <option value="1">Fans</option>
+                            <option value="2">Blowers</option>
+                            <option value="3">Ventilators</option>
+                            <option value="4">Circulator</option>
+                            <option value="5">Roof Mount Ventilators</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Products Table -->
+                <div class="products-table-container">
+                    <table class="products-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="products-table-body">
+                            <tr>
+                                <td colspan="5" class="no-data">Loading products...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add/Edit Product Modal -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Add Product</h2>
+                <span class="close-modal" onclick="closeProductModal()">&times;</span>
+            </div>
+            <form id="product-form" class="product-form">
+                <input type="hidden" id="product-id" name="id">
+
+                <div class="form-group">
+                    <label for="product-name">Product Name *</label>
+                    <input type="text" id="product-name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="product-category">Category *</label>
+                    <select id="product-category" name="category_id" required>
+                        <option value="">Select Category</option>
+                        <option value="1">Fans</option>
+                        <option value="2">Blowers</option>
+                        <option value="3">Ventilators</option>
+                        <option value="4">Circulator</option>
+                        <option value="5">Roof Mount Ventilators</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="product-price">Price *</label>
+                    <input type="number" id="product-price" name="price" step="0.01" min="0" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="product-description">Description</label>
+                    <textarea id="product-description" name="description" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="product-stock">Initial Stock Quantity *</label>
+                    <input type="number" id="product-stock" name="stock_quantity" min="0" value="0" required>
+                    <small>Enter initial stock quantity for this product</small>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" onclick="closeProductModal()">Cancel</button>
+                    <button type="submit" class="primary-btn">Save Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="delete-modal" class="modal">
+        <div class="modal-content small-modal">
+            <div class="modal-header">
+                <h2>Delete Product</h2>
+                <span class="close-modal" onclick="closeDeleteModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this product? This action cannot be undone.</p>
+                <p><strong id="delete-product-name"></strong></p>
+            </div>
+            <div class="modal-actions">
+                <button onclick="closeDeleteModal()">Cancel</button>
+                <button onclick="confirmDelete()" class="danger-btn">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../scripts/products.js"></script>
+</body>
+</html>

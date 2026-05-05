@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aleja Blower - Dashboard</title>
+    <link rel="stylesheet" href="../styles/dashboard.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-wind"></i> Aleja Blower</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item active" data-page="dashboard">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </li>
+                <li class="nav-item" data-page="pos">
+                    <i class="fas fa-cash-register"></i> Point of Sale
+                </li>
+                <li class="nav-item" data-page="products">
+                    <i class="fas fa-box"></i> Products
+                </li>
+                <li class="nav-item" data-page="inventory">
+                    <i class="fas fa-warehouse"></i> Inventory
+                </li>
+                <li class="nav-item" data-page="sales">
+                    <i class="fas fa-receipt"></i> Sales Records
+                </li>
+                <li class="nav-item" data-page="reports">
+                    <i class="fas fa-chart-bar"></i> Reports
+                </li>
+                <li class="nav-item logout-item" id="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <h1>Dashboard</h1>
+                <div class="header-actions">
+                    <div class="date-time">
+                        <span id="current-date"></span>
+                        <span id="current-time"></span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div id="dashboard-content" class="page-content">
+                <!-- Statistics Cards -->
+<div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-boxes"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="total-products">0</h3>
+                            <p>Total Products</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-cubes"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="total-inventory">0</h3>
+                            <p>Total Inventory</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="low-stock-count">0</h3>
+                            <p>Low Stock Items</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-peso-sign"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="today-sales">₱0.00</h3>
+                            <p>Today's Sales</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-receipt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="recent-transactions">0</h3>
+                            <p>Total Transactions</p>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- Recent Transactions -->
+                <div class="recent-transactions">
+                    <h2 onclick="openTransactionsModal()" style="cursor: pointer;">
+                        Recent Transactions 
+                        <i class="fas fa-external-link-alt" style="font-size: 0.8rem; margin-left: 10px;"></i>
+                    </h2>
+                    <div class="transactions-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Transaction ID</th>
+                                    <th>Date & Time</th>
+                                    <th>Items</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recent-transactions-body">
+                                <tr>
+                                    <td colspan="5" class="no-data">No recent transactions</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Low Stock Alert -->
+                <div class="low-stock-alert">
+                    <div class="section-header">
+                        <h2><i class="fas fa-exclamation-triangle"></i> Low Stock Alert</h2>
+                        <div class="section-actions">
+                            <button class="refresh-btn" onclick="loadLowStockItems()" title="Refresh low stock items">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                            <button class="update-stock-btn" onclick="navigateToInventoryPage()" title="Update stock levels">
+                                <i class="fas fa-edit"></i> Update Stock
+                            </button>
+                        </div>
+                    </div>
+                    <div id="low-stock-items">
+                        <p>No low stock items</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Transactions Modal -->
+    <div id="transactions-modal" class="modal">
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h2>Recent Transactions</h2>
+                <span class="close-modal" onclick="closeTransactionsModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <!-- Filters -->
+                <div class="transactions-filters">
+                    <div class="filter-group">
+                        <label for="transaction-date">Date:</label>
+                        <input type="date" id="transaction-date" onchange="loadAllTransactions()">
+                    </div>
+                    <div class="filter-group">
+                        <label for="transaction-search">Search:</label>
+                        <input type="text" id="transaction-search" placeholder="Search by transaction ID or product..." onkeyup="loadAllTransactions()">
+                    </div>
+                    <div class="filter-group">
+                        <label for="transaction-sort">Sort:</label>
+                        <select id="transaction-sort" onchange="loadAllTransactions()">
+                            <option value="desc">Newest First</option>
+                            <option value="asc">Oldest First</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <button class="primary-btn" onclick="clearFilters()">Clear Filters</button>
+                    </div>
+                </div>
+
+                <!-- Transactions Table -->
+                <div class="transactions-table-container">
+                    <table class="transactions-table">
+                        <thead>
+                            <tr>
+                                <th>Transaction ID</th>
+                                <th>Date & Time</th>
+                                <th>Items Summary</th>
+                                <th>Items</th>
+                                <th>Total</th>
+                                <th>Payment</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="all-transactions-body">
+                            <tr>
+                                <td colspan="7" class="no-data">Loading transactions...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Transaction Details Modal -->
+    <div id="transaction-details-modal" class="modal">
+        <div class="modal-content medium-modal">
+            <div class="modal-header">
+                <h2>Transaction Details</h2>
+                <span class="close-modal" onclick="closeTransactionDetailsModal()">&times;</span>
+            </div>
+            <div class="modal-body" id="transaction-details-content">
+                <!-- Details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="../scripts/dashboard.js"></script>
+</body>
+</html>

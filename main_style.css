@@ -1,0 +1,188 @@
+* {
+    font-family: "Averia Serif Libre", serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  :root {
+    --tw-bg-opacity: 1;
+    --primary-color: #2fb37a;
+    --primary-dark: #0f7d51;
+    --primary-light: #46f8aa;
+    --secondary-color: #f8f9fa;
+    --text-dark: #2c3e50;
+    --text-light: #6c757d;
+    --white: #ffffff;
+    --gray-100: #f8f9fa;
+    --gray-200: #e9ecef;
+    --gray-300: #dee2e6;
+    --gray-400: #ced4da;
+    --gray-500: #adb5bd;
+    --gray-600: #6c757d;
+    --gray-700: #495057;
+    --gray-800: #343a40;
+    --gray-900: #212529;
+    --sidebar-width: 250px;
+    --transition: all 0.3s ease;
+  }
+  
+  body {
+    display: flex;
+    min-height: 100vh;
+    background: var(--gray-100);
+    font-family: "Averia Serif Libre", serif;
+  }
+  
+  /* Main Content Area */
+  .main-content {
+    flex: 1;
+    margin-left: var(--sidebar-width);
+    padding: 0;
+    min-height: 100vh;
+    background: var(--gray-100);
+  }
+  
+  .content-area {
+    padding: 2rem;
+    min-height: 100vh;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+  }
+  
+  .content-area.loading {
+    opacity: 0.7;
+  }
+  
+  .content-area.fade-in {
+    animation: none;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  /* Sidebar Styles */
+  .sidebar {
+    background: var(--white);
+    width: var(--sidebar-width);
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 0;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+  
+  .logo {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 30px 25px 20px 25px;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  .logo-img {
+    width: 300px;
+    height: auto;
+    max-width: 100%;
+    margin-bottom: 8px;
+  }
+  
+  .logo::after {
+    content: "User Portal";
+    font-size: 0.9rem;
+    color: #6c757d;
+    font-weight: 400;
+    margin-top: 5px;
+    margin-left: 60px;
+  }
+  
+  .sidebar ul {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    list-style: none;
+    position: relative;
+    padding: 20px 0;
+    flex: 1;
+    gap: 0;
+  }
+  
+  .sidebar ul li {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    cursor: pointer;
+    
+  }
+  
+  .sidebar ul li a {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 15px 25px;
+    text-decoration: none;
+    color: #6c757d;
+    
+    border-radius: 10px;
+    margin: 0 20px;
+    width: calc(100% - 40px);
+    font-weight: 500;
+    min-height: 50px;
+  }
+  
+  .sidebar ul li a:hover {
+    background: #e6fae6;
+    color: #339933;
+  }
+  
+  .sidebar ul li.active a {
+    background: #33cc66;
+    color: var(--white);
+    box-shadow: none;
+  }
+  
+  .sidebar ul li a .icon {
+    font-size: 1.1em;
+    margin-right: 15px;
+    width: 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .sidebar ul li a .text {
+    font-weight: 500;
+    font-size: 0.95em;
+  }
+  
+  /* Sign Out Button Styling */
+  .sidebar ul li:last-child {
+    margin-top: auto;
+    padding: 20px 0;
+  }
+  
+  .sidebar ul li:last-child a {
+    color: #6c757d;
+  }
+  
+  .sidebar ul li:last-child a:hover {
+    background: #f8f9fa;
+    color: #dc3545;
+  }
+  
+  /* Remove the old indicator */
+  .indicator {
+    display: none;
+  }
+  

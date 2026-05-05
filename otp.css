@@ -1,0 +1,236 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #2563eb;
+  --primary-dark: #1d4ed8;
+  --primary-light: #3b82f6;
+  --secondary-color: #64748b;
+  --success-color: #10b981;
+  --warning-color: #f59e0b;
+  --danger-color: #ef4444;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --bg-card: #ffffff;
+  --bg-light: #f8fafc;
+  --border-light: #e2e8f0;
+  --shadow-light: 0 1px 3px rgba(0,0,0,0.1);
+  --shadow-card: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+body {
+    font-family: "Josefin Sans", sans-serif;
+    background: linear-gradient(to right, var(--primary-light), var(--bg-light));
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    color: var(--text-primary);
+}
+
+.otp-container {
+    width: 100%;
+    max-width: 400px;
+    animation: fadeInUp 0.6s ease-out;
+    text-align: center;
+}
+
+.logo-container {
+    margin-bottom: -10px;
+}
+
+.logo {
+    width: 120px;
+    height: 120px;
+    
+    object-fit: contain;
+    filter: brightness(0);
+}
+
+.title-container {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.title-container h1 {
+    color: var(--text-primary);
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
+.otp-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 40px 30px;
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--border-light);
+    text-align: center;
+    position: relative;
+}
+
+.header {
+    margin-bottom: 30px;
+}
+
+.header p {
+    color: var(--text-secondary);
+    font-size: 15px;
+    font-weight: 400;
+    text-align: left;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.otp-form {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.otp-inputs {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.otp-input {
+    width: 50px;
+    height: 60px;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.otp-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background: var(--bg-card);
+    box-shadow: 0 0 0 2px rgba(37,99,235,0.2);
+}
+
+.otp-input:not(:placeholder-shown) {
+    border-color: var(--primary-color);
+}
+
+.otp-input::placeholder {
+    color: transparent;
+}
+
+.error-message {
+    color: var(--danger-color);
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 10px;
+    padding: 6px 12px;
+    background: rgba(239,68,68,0.1);
+    border: 1px solid rgba(239,68,68,0.3);
+    border-radius: 6px;
+    display: none;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.success-message {
+    color: var(--success-color);
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 10px;
+    padding: 6px 12px;
+    background: rgba(16,185,129,0.1);
+    border: 1px solid rgba(16,185,129,0.3);
+    border-radius: 6px;
+    display: none;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.resend-container {
+    margin-top: 20px;
+}
+
+.resend-container p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.resend-link {
+    color: var(--primary-color);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+}
+
+.resend-link:hover {
+    color: var(--primary-dark);
+    border-bottom-color: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .otp-card {
+        padding: 30px 20px;
+        margin: 10px;
+    }
+    
+    .header h1 {
+        font-size: 24px;
+    }
+    
+    .otp-input {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+    }
+    
+    .otp-inputs {
+        gap: 8px;
+    }
+}
+
+@media (max-width: 360px) {
+    .otp-input {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+    
+    .otp-inputs {
+        gap: 6px;
+    }
+}

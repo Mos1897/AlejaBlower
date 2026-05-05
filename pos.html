@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aleja Blower - POS</title>
+    <link rel="stylesheet" href="../styles/pos.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-wind"></i> Aleja Blower</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item" data-page="dashboard">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </li>
+                <li class="nav-item active" data-page="pos">
+                    <i class="fas fa-cash-register"></i> Point of Sale
+                </li>
+                <li class="nav-item" data-page="products">
+                    <i class="fas fa-box"></i> Products
+                </li>
+                <li class="nav-item" data-page="inventory">
+                    <i class="fas fa-warehouse"></i> Inventory
+                </li>
+                <li class="nav-item" data-page="sales">
+                    <i class="fas fa-receipt"></i> Sales Records
+                </li>
+                <li class="nav-item" data-page="reports">
+                    <i class="fas fa-chart-bar"></i> Reports
+                </li>
+                <li class="nav-item logout-item" id="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <h1>Point of Sale</h1>
+                </div>
+                <div class="header-right">
+                    <div class="date-time">
+                        <span id="current-date"></span>
+                        <span id="current-time"></span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- POS Content -->
+            <div class="page-content">
+                <div class="pos-content">
+            <!-- Product Search and Selection -->
+            <div class="product-section">
+                <div class="search-section">
+                    <input type="text" id="product-search" placeholder="Search products by name or category..." class="search-input">
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+
+                <div class="products-grid" id="products-grid">
+                    <!-- Products will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Cart and Checkout -->
+            <div class="cart-section">
+                <div class="cart-header">
+                    <h2>Current Order</h2>
+                    <button class="clear-cart-btn" onclick="clearCart()">
+                        <i class="fas fa-trash"></i> Clear Cart
+                    </button>
+                </div>
+
+                <div class="cart-items" id="cart-items">
+                    <div class="empty-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <p>No items in cart</p>
+                    </div>
+                </div>
+
+                <div class="cart-total">
+                    <div class="total-row">
+                        <span>Total:</span>
+                        <span class="total-amount" id="cart-total">₱0.00</span>
+                    </div>
+                </div>
+
+                <div class="checkout-section">
+                    <div class="payment-method">
+                        <label>Payment Method:</label>
+                        <select id="payment-method">
+                            <option value="cash">Cash</option>
+                        </select>
+                    </div>
+
+                    <button class="checkout-btn" id="checkout-btn" onclick="processSale()" disabled>
+                        <i class="fas fa-credit-card"></i> Complete Sale
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Receipt Modal -->
+    <div id="receipt-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Sale Completed</h2>
+                <span class="close-modal" onclick="closeReceiptModal()">&times;</span>
+            </div>
+            <div class="receipt-content" id="receipt-content">
+                <!-- Receipt will be displayed here -->
+            </div>
+            <div class="modal-actions">
+                <button onclick="printReceipt()">Print Receipt</button>
+                <button onclick="closeReceiptModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../scripts/pos.js"></script>
+</body>
+</html>

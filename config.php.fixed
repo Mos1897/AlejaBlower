@@ -1,0 +1,182 @@
+<?php
+// api/config.php - Fixed: laundry DB + products CRUD + no image required + CATEGORIES FIX
+require_once __DIR__ . '/database.php';
+
+// Global PDO
+try {
+    $pdo = new PDO('mysql:host=localhost;dbname=laundry;charset=utf8mb4', 'root', '');
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    http_response_code(500);
+    echo json_encode(['success' => false, 'message' => 'DB connection failed']);
+    exit;
+}
+
+// Include categories support
+require_once __DIR__ . '/categories.php';
+createCategoriesTable();
+
+// Auto-create POS tables if missing
+function createPOSTables() {
+    global $pdo;
+    
+    $tables = [
+        "CREATE TABLE IF NOT EXISTS `sales` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `transaction_id` varchar(50) NOT NULL UNIQUE,
+            `total_amount` decimal(10,2) NOT NULL DEFAULT 0.00,
+            `payment_method` varchar(50) NOT NULL DEFAULT 'cash',
+            `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (`id`),
+            KEY `idx_transaction` (`transaction_id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+        
+        "CREATE TABLE IF NOT EXISTS `sales_items` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `sale_id` int(11) NOT NULL,
+            `product_id` int(11) NOT NULL,
+            `quantity` int(11) NOT NULL,
+            `unit_price` decimal(10,2) NOT NULL,
+            `total_price` decimal(10,2) NOT NULL,
+            PRIMARY KEY (`id`),
+            KEY `fk_sale` (`sale_id`),
+            KEY `fk_product` (`product_id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+        
+        "CREATE TABLE IF NOT EXISTS `products` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `name` varchar(255) NOT NULL,
+            `category_id` varchar(50) DEFAULT NULL,
+            `price` decimal(10,2) NOT NULL DEFAULT 0.00,
+            `stock_quantity` int(11) NOT NULL DEFAULT 0,
+            `description` text DEFAULT NULL,
+            `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+            PRIMARY KEY (`id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    ];
+    
+    foreach ($tables as $sql) {
+        try {
+            $pdo->exec($sql);
+        } catch (PDOException $e) {
+            error_log("Table creation warning: " . $e->getMessage());
+        }
+    }
+    
+    createPOSTables();
+    
+    // Sample products
+    $sampleProducts = [
+        ['Industrial Fan', 'fans', 3500.00, 25, 'Heavy duty industrial fan'],
+        ['Centrifugal Blower', 'blowers', 12500.00, 15, 'High performance blower'],
+        ['Roof Ventilator', 'roof_mount_ventilators', 1800.00, 40, 'Aluminum roof ventilator'],
+        ['Air Circulator', 'circulator', 2800.00, 30, 'Portable air circulator'],
+        ['Exhaust Ventilator', 'ventilator', 3200.00, 20, 'Wall mounted exhaust ventilator']
+    ];
+    
+    $stmt = $pdo->prepare("INSERT IGNORE INTO products (name, category_id, price, stock_quantity, description) VALUES (?, ?, ?, ?, ?)");
+    foreach ($sampleProducts as $product) {
+        $stmt->execute($product);
+    }
+}
+
+// Products CRUD - FIXED WITH CATEGORIES JOIN
+function getAllProducts() {
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT p.*, c.name as category_name FROM products p LEFT JOIN categories c ON p.category_id = c.id ORDER BY p.name ASC");
+    $stmt->execute();
+    return $stmt->fetchAll();
+}
+
+function getCategories() {
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT id, name FROM categories ORDER BY name");
+    $stmt->execute();
+    return $stmt->fetchAll();
+}
+
+function addProduct($data) {
+    global $pdo;
+    $stmt = $pdo->prepare("INSERT INTO products (name, category_id, price, description, stock_quantity) VALUES (?, ?, ?, ?, ?)");
+    $stmt->execute([
+        $data['name'],
+        $data['category_id'],
+        $data['price'],
+        $data['description'] ?? '',
+        $data['stock_quantity'] ?? 0
+    ]);
+    return $pdo->lastInsertId();
+}
+
+function updateProduct($id, $data) {
+    global $pdo;
+    $stmt = $pdo->prepare("UPDATE products SET name = ?, category_id = ?, price = ?, description = ?, stock_quantity = ?, updated_at = NOW() WHERE id = ?");
+    $stmt->execute([
+        $data['name'],
+        $data['category_id'],
+        $data['price'],
+        $data['description'] ?? '',
+        $data['stock_quantity'] ?? 0,
+        $id
+    ]);
+    return $stmt->rowCount() > 0;
+}
+
+function deleteProduct($id) {
+    global $pdo;
+    $stmt = $pdo->prepare("DELETE FROM products WHERE id = ?");
+    $stmt->execute([$id]);
+    return $stmt->rowCount() > 0;
+}
+
+// Other functions...
+function getTotalProducts() {
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT COUNT(*) as count FROM products");
+    $stmt->execute();
+    return $stmt->fetch()['count'];
+}
+
+function getTotalInventory() {
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT SUM(stock_quantity) as total FROM products");
+    $stmt->execute();
+    return $stmt->fetch()['total'] ?? 0;
+}
+
+function getInventoryReport() {
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT * FROM products ORDER BY stock_quantity ASC");
+    $stmt->execute();
+    return $stmt->fetchAll();
+}
+
+function getTodaySales() {
+    global $pdo;
+    $today = date('Y-m-d');
+    $stmt = $pdo->prepare("SELECT COUNT(*) as count, COALESCE(SUM(total_amount), 0) as total FROM sales WHERE DATE(created_at) = ?");
+    $stmt->execute([$today]);
+    $result = $stmt->fetch();
+    return [
+        'count' => (int)$result['count'],
+        'total' => (float)$result['total']
+    ];
+}
+
+function getRecentTransactions() {
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT s.*, COUNT(si.id) as items_count FROM sales s LEFT JOIN sales_items si ON s.id = si.sale_id GROUP BY s.id ORDER BY s.created_at DESC LIMIT 5");
+    $stmt->execute();
+    return $stmt->fetchAll();
+}
+
+function searchProducts($query) {
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT * FROM products WHERE name LIKE ? OR description LIKE ? ORDER BY name ASC");
+    $stmt->execute(["%$query%", "%$query%"]);
+    return $stmt->fetchAll();
+}
+?>
+

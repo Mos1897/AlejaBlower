@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification - Aleja Blower</title>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/otp.css">
+</head>
+<body>
+    <div class="otp-container">
+        <!-- Title outside the card -->
+        <div class="title-container">
+            <h1>Check your email</h1>
+        </div>
+        
+        <div class="otp-card">
+            <!-- Subtitle -->
+            <div class="header">
+                <p>Enter the code sent to your email</p>
+            </div>
+            
+            <!-- OTP Input Form -->
+            <form class="otp-form" id="otpForm">
+                <div class="otp-inputs">
+                    <input type="text" class="otp-input" maxlength="1" data-index="0" autocomplete="off">
+                    <input type="text" class="otp-input" maxlength="1" data-index="1" autocomplete="off">
+                    <input type="text" class="otp-input" maxlength="1" data-index="2" autocomplete="off">
+                    <input type="text" class="otp-input" maxlength="1" data-index="3" autocomplete="off">
+                    <input type="text" class="otp-input" maxlength="1" data-index="4" autocomplete="off">
+                    <input type="text" class="otp-input" maxlength="1" data-index="5" autocomplete="off">
+                </div>
+                
+                <!-- Error Message -->
+                <div class="error-message" id="errorMessage"></div>
+                
+                <!-- Success Message -->
+                <div class="success-message" id="successMessage"></div>
+            </form>
+            
+            <!-- Resend Code -->
+            <div class="resend-container">
+                <p>Didn't receive a code? <span class="resend-link" id="resendLink">Resend now</span></p>
+            </div>
+        </div>
+    </div>
+    <script src="../scripts/otp_script.js"></script>
+</body>
+</html>
