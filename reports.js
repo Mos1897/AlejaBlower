@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Auth check - ensure user is logged in
     if (!localStorage.getItem('userEmail')) {
         console.log('No user session found, redirecting to login');
-        window.location.href = '../html/login_page.html';
+        window.location.href = '../html/index.html';
         return;
     }
     console.log('User authenticated:', localStorage.getItem('userEmail'));
@@ -15,6 +15,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Initialize reports page
 function initializeReports() {
+    // Populate user email from localStorage
+    const userEmail = localStorage.getItem('userEmail');
+    if (userEmail) {
+        const userEmailElement = document.getElementById('user-email');
+        if (userEmailElement) {
+            userEmailElement.textContent = userEmail;
+        }
+    }
+
+    // Initialize date and time
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+
     // Navigation
     const navItems = document.querySelectorAll('.nav-item');
     navItems.forEach(item => {
@@ -49,7 +62,7 @@ function navigateTo(page) {
         'pos': '../html/pos.html',
         'products': '../html/products.html',
         'inventory': '../html/inventory.html',
-        'sales': '../html/sales.html',
+        'sales': 'sales.html',
         'reports': 'reports.html'  // Stay on current
     };
 
@@ -61,7 +74,7 @@ function navigateTo(page) {
 // Logout function
 function logout() {
     localStorage.removeItem('userEmail');
-    window.location.href = '../html/login_page.html';
+    window.location.href = '../html/index.html';
 }
 
 // Charts and reports functionality (from inline script)
@@ -1879,3 +1892,25 @@ switchTab = function(tabName) {
         fetchInventoryAnalytics();
     }
 };
+
+// Update date and time
+function updateDateTime() {
+    const now = new Date();
+    const dateElement = document.getElementById('current-date');
+    const timeElement = document.getElementById('current-time');
+
+    if (dateElement && timeElement) {
+        dateElement.textContent = now.toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+
+        timeElement.textContent = now.toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+    }
+}

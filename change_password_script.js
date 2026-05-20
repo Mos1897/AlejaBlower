@@ -24,13 +24,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Verify email matches if available
     if (otpVerifiedEmail && email && email.toLowerCase() !== otpVerifiedEmail.toLowerCase()) {
     alert('Email mismatch. Please try again.');
-    window.location.href = '/laundry/html/login_page.html';
+    window.location.href = '/laundry/html/index.html';
     return;
 }
 
 if (!email && !otpVerifiedEmail) {
     alert('Email not found. Please try again.');
-    window.location.href = '/laundry/html/login_page.html';
+    window.location.href = '/laundry/html/index.html';
     return;
 }
     // Use email from URL or from sessionStorage
@@ -243,7 +243,7 @@ if (!email && !otpVerifiedEmail) {
                 } else {
                     // If coming from forgot password flow, redirect to login page
                     setTimeout(() => {
-                        window.location.href = '/laundry/html/login_page.html';
+                        window.location.href = '/laundry/html/index.html';
                     }, 2000);
                 }
             } else {

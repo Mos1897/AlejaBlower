@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aleja Blower - Dashboard</title>
     <link rel="stylesheet" href="../styles/dashboard.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="dashboard-container">
@@ -43,11 +44,21 @@
         <main class="main-content">
             <!-- Header -->
             <header class="header">
-                <h1>Dashboard</h1>
+                <div class="header-left">
+                    <h1>Welcome to Aleja Blower</h1>
+                    <p class="header-subtitle">Here's what's happening with your business today</p>
+                </div>
                 <div class="header-actions">
-                    <div class="date-time">
-                        <span id="current-date"></span>
-                        <span id="current-time"></span>
+                    <div class="user-profile">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="user-info">
+                            <span class="user-email" id="user-email">user@email.com</span>
+                            <div class="date-time-small">
+                                <span id="current-date"></span> • <span id="current-time"></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </header>
@@ -55,55 +66,55 @@
             <!-- Dashboard Content -->
             <div id="dashboard-content" class="page-content">
                 <!-- Statistics Cards -->
-<div class="stats-grid">
+                <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-boxes"></i>
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i class="fas fa-boxes"></i>
+                            </div>
+                            <span class="stat-label">Total Products</span>
                         </div>
-                        <div class="stat-info">
-                            <h3 id="total-products">0</h3>
-                            <p>Total Products</p>
-                        </div>
+                        <div class="stat-value" id="total-products">0</div>
                     </div>
 
                     <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-cubes"></i>
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i class="fas fa-cubes"></i>
+                            </div>
+                            <span class="stat-label">Total Inventory</span>
                         </div>
-                        <div class="stat-info">
-                            <h3 id="total-inventory">0</h3>
-                            <p>Total Inventory</p>
-                        </div>
+                        <div class="stat-value" id="total-inventory">0</div>
                     </div>
 
                     <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-exclamation-triangle"></i>
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <span class="stat-label">Low Stock</span>
                         </div>
-                        <div class="stat-info">
-                            <h3 id="low-stock-count">0</h3>
-                            <p>Low Stock Items</p>
-                        </div>
+                        <div class="stat-value" id="low-stock-count">0</div>
                     </div>
 
                     <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-peso-sign"></i>
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i class="fas fa-peso-sign"></i>
+                            </div>
+                            <span class="stat-label">Today's Sales</span>
                         </div>
-                        <div class="stat-info">
-                            <h3 id="today-sales">₱0.00</h3>
-                            <p>Today's Sales</p>
-                        </div>
+                        <div class="stat-value" id="today-sales">₱0.00</div>
                     </div>
 
                     <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-receipt"></i>
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i class="fas fa-receipt"></i>
+                            </div>
+                            <span class="stat-label">Transactions</span>
                         </div>
-                        <div class="stat-info">
-                            <h3 id="recent-transactions">0</h3>
-                            <p>Total Transactions</p>
-                        </div>
+                        <div class="stat-value" id="recent-transactions">0</div>
                     </div>
                 </div>
 
@@ -224,6 +235,6 @@
         </div>
     </div>
 
-    <script src="../scripts/dashboard.js"></script>
+    <script src="../scripts/dashboard.js?v=2"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-/* Sales Records Styles */
+/* Sales Records Styles - Modern Design */
 :root {
     --primary-color: #2563eb;
     --primary-dark: #1d4ed8;
@@ -6,13 +6,13 @@
     --success-color: #10b981;
     --warning-color: #f59e0b;
     --danger-color: #ef4444;
-    --background-color: #f8fafc;
+    --background-color: #f1f5f9;
     --card-background: #ffffff;
     --text-primary: #1e293b;
     --text-secondary: #64748b;
     --border-color: #e2e8f0;
-    --sidebar-width: 250px;
-    --header-height: 70px;
+    --sidebar-width: 260px;
+    --header-height: 80px;
 }
 
 * {
@@ -22,7 +22,7 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
     background-color: var(--background-color);
     color: var(--text-primary);
     line-height: 1.6;
@@ -33,114 +33,173 @@ body {
     min-height: 100vh;
 }
 
-/* Sidebar */
+/* Sidebar - Modern Style */
 .sidebar {
     width: var(--sidebar-width);
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    background: linear-gradient(180deg, #1e3a8a 0%, #2563eb 100%);
     color: white;
     position: fixed;
     height: 100vh;
     left: 0;
     top: 0;
     z-index: 1000;
-    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    box-shadow: 4px 0 20px rgba(0,0,0,0.15);
     display: flex;
     flex-direction: column;
+    padding: 20px 0;
 }
 
 .sidebar-header {
-    padding: 20px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding: 20px 25px 30px;
+    text-align: center;
 }
 
 .sidebar-header h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-size: 1.4rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
 .sidebar-header i {
-    margin-right: 10px;
+    font-size: 1.6rem;
 }
 
 .nav-menu {
     list-style: none;
-    padding: 20px 0;
+    padding: 0 15px;
     margin: 0;
     display: flex;
     flex-direction: column;
     flex: 1;
+    gap: 8px;
 }
 
 .nav-item {
-    padding: 15px 20px;
+    padding: 14px 20px;
     cursor: pointer;
     transition: all 0.3s ease;
-    border-left: 4px solid transparent;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.95rem;
+    font-weight: 500;
 }
 
 .nav-item:hover {
-    background-color: rgba(255,255,255,0.1);
-    border-left-color: rgba(255,255,255,0.5);
+    background-color: rgba(255,255,255,0.15);
+    transform: translateX(5px);
 }
 
 .nav-item.active {
-    background-color: rgba(255,255,255,0.15);
-    border-left-color: white;
+    background-color: rgba(255,255,255,0.2);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
 .nav-item i {
-    margin-right: 12px;
-    width: 20px;
+    font-size: 1.1rem;
+    width: 24px;
+    text-align: center;
 }
 
 /* Logout Item Styling */
 .logout-item {
     margin-top: auto;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    background-color: rgba(239,68,68,0.1);
-    color: #ef4444;
+    margin: 20px 15px 0;
+    background-color: rgba(239,68,68,0.15);
+    color: #fca5a5;
+    border-radius: 12px;
     transition: all 0.3s ease;
 }
 
 .logout-item:hover {
-    background-color: rgba(239,68,68,0.2);
-    color: #dc2626;
-}
-
-.logout-item i {
-    color: inherit;
+    background-color: rgba(239,68,68,0.25);
+    color: #fff;
+    transform: translateX(5px);
 }
 
 /* Main Content */
 .main-content {
     margin-left: var(--sidebar-width);
     flex: 1;
-    padding: 20px;
+    padding: 30px;
 }
 
-/* Header */
+/* Header - Modern Style */
 .header {
     background: var(--card-background);
-    padding: 20px 30px;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    margin-bottom: 30px;
+    padding: 25px 35px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    margin-bottom: 35px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.header-left h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 5px;
+.header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
-.header-right {
+.header-left h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.header-subtitle {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+.header-actions {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 25px;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #f8fafc;
+    padding: 10px 20px;
+    border-radius: 50px;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.1rem;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.user-email {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+}
+
+.date-time-small {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-top: 2px;
 }
 
 .date-time {
@@ -149,65 +208,73 @@ body {
     color: var(--text-secondary);
 }
 
-/* Filters Section */
+/* Filters Section - Modern */
 .filters-section {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 20px;
     background: var(--card-background);
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 25px 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border: none;
 }
 
 .search-container {
     position: relative;
     flex: 1;
-    max-width: 300px;
+    max-width: 320px;
 }
 
 .search-container i {
     position: absolute;
-    left: 15px;
+    left: 16px;
     top: 50%;
     transform: translateY(-50%);
     color: var(--text-secondary);
+    font-size: 1rem;
 }
 
 .search-input {
     width: 100%;
-    padding: 10px 15px 10px 40px;
+    padding: 14px 18px 14px 45px;
     border: 2px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 12px;
     font-size: 14px;
-    transition: border-color 0.2s ease;
+    transition: all 0.3s ease;
+    background: #f8fafc;
 }
 
 .search-input:focus {
     outline: none;
     border-color: var(--primary-color);
+    background: white;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
 }
 
 .date-filter {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     align-items: center;
 }
 
 .date-input {
-    padding: 10px 15px;
+    padding: 14px 18px;
     border: 2px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 12px;
     font-size: 14px;
-    transition: border-color 0.2s ease;
+    transition: all 0.3s ease;
+    background: #f8fafc;
 }
 
 .date-input:focus {
     outline: none;
     border-color: var(--primary-color);
+    background: white;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
 }
 
 .sort-options {
@@ -216,48 +283,51 @@ body {
 }
 
 .sort-select {
-    padding: 10px 15px;
+    padding: 14px 18px;
     border: 2px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 12px;
     font-size: 14px;
-    background: white;
+    background: #f8fafc;
     cursor: pointer;
-    transition: border-color 0.2s ease;
+    transition: all 0.3s ease;
 }
 
 .sort-select:focus {
     outline: none;
     border-color: var(--primary-color);
+    background: white;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
 }
 
-/* Summary Cards */
+/* Summary Cards - Modern */
 .summary-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    margin-bottom: 30px;
+    gap: 25px;
+    margin-bottom: 35px;
 }
 
 .summary-card {
     background: var(--card-background);
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 28px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border: none;
     display: flex;
     align-items: center;
     gap: 20px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .summary-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
 }
 
 .card-icon {
     width: 60px;
     height: 60px;
-    border-radius: 12px;
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -292,120 +362,145 @@ body {
     color: var(--text-secondary);
     font-size: 14px;
     margin: 0;
+    font-weight: 500;
 }
 
-/* Table Container */
+/* Table Container - Modern */
 .table-container {
     background: var(--card-background);
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border: none;
     overflow: hidden;
 }
 
-/* Sales Table */
+/* Sales Table - Modern */
 .sales-table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     font-size: 14px;
 }
 
 .sales-table th {
-    background: #f7fafc;
-    padding: 15px;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    padding: 18px;
     text-align: left;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--text-primary);
     border-bottom: 2px solid var(--border-color);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.sales-table th:first-child {
+    border-radius: 12px 0 0 0;
+}
+
+.sales-table th:last-child {
+    border-radius: 0 12px 0 0;
 }
 
 .sales-table td {
-    padding: 15px;
+    padding: 18px;
     border-bottom: 1px solid var(--border-color);
     vertical-align: middle;
+    color: var(--text-secondary);
 }
 
 .sales-table tr:hover {
-    background: #f7fafc;
+    background: #f8fafc;
 }
 
-.sales-table tr:last-child td {
-    border-bottom: none;
+.sales-table tr:last-child td:first-child {
+    border-radius: 0 0 0 12px;
 }
 
-/* Payment Method Badges */
+.sales-table tr:last-child td:last-child {
+    border-radius: 0 0 12px 0;
+}
+
+/* Payment Method Badges - Modern */
 .payment-method {
-    padding: 4px 12px;
+    padding: 6px 14px;
     border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 11px;
+    font-weight: 700;
     text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .payment-method.cash {
-    background: #c6f6d5;
-    color: #22543d;
+    background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+    color: #166534;
 }
 
 .payment-method.card {
-    background: #bee3f8;
-    color: #2a4365;
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+    color: #1e40af;
 }
 
 .payment-method.online {
-    background: #e6fffa;
-    color: #234e52;
+    background: linear-gradient(135deg, #ccfbf1 0%, #99f6e4 100%);
+    color: #115e59;
 }
 
-/* Action Buttons */
+/* Action Buttons - Modern */
 .action-btn {
-    background: none;
     border: none;
-    padding: 8px;
-    border-radius: 6px;
+    padding: 10px 14px;
+    border-radius: 10px;
     cursor: pointer;
-    transition: all 0.2s ease;
-    margin: 0 2px;
+    transition: all 0.3s ease;
+    margin: 0 3px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
     color: var(--primary-color);
 }
 
 .action-btn:hover {
-    background: #ebf8ff;
-    color: var(--primary-dark);
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
 }
 
-/* Button Styles */
+/* Button Styles - Modern */
 .btn {
-    padding: 10px 20px;
+    padding: 12px 24px;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
 }
 
 .btn-primary {
-    background: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     color: white;
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
 }
 
 .btn-primary:hover {
-    background: var(--primary-dark);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
 }
 
 .btn-secondary {
-    background: var(--secondary-color);
-    color: white;
+    background: #f1f5f9;
+    color: var(--text-secondary);
 }
 
 .btn-secondary:hover {
-    background: #475569;
-    transform: translateY(-1px);
+    background: #e2e8f0;
+    color: var(--text-primary);
 }
 
 /* Loading and Empty States */
@@ -433,7 +528,7 @@ body {
     color: var(--text-primary);
 }
 
-/* Modal Styles */
+/* Modal Styles - Modern */
 .modal {
     display: none;
     position: fixed;
@@ -442,50 +537,79 @@ body {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    align-items: center;
+    justify-content: center;
     animation: fadeIn 0.3s ease;
 }
 
 .modal-content {
     background-color: var(--card-background);
-    margin: 5% auto;
     padding: 0;
-    border-radius: 12px;
+    border-radius: 24px;
     width: 90%;
     max-width: 600px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    animation: slideIn 0.3s ease;
+    max-height: 90vh;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    border: none;
+    display: flex;
+    flex-direction: column;
 }
 
 .modal-header {
-    padding: 20px 30px;
+    padding: 28px 32px;
     border-bottom: 1px solid var(--border-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
 }
 
 .modal-header h2 {
-    font-size: 24px;
-    font-weight: 600;
+    font-size: 1.5rem;
+    font-weight: 700;
     color: var(--text-primary);
 }
 
+.modal-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.modal-header-actions .btn {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+}
+
 .close-modal {
-    font-size: 28px;
-    font-weight: bold;
+    background: white;
+    border: none;
+    font-size: 1.4rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: var(--text-secondary);
     cursor: pointer;
-    transition: color 0.2s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .close-modal:hover {
-    color: var(--danger-color);
+    background: var(--danger-color);
+    color: white;
+    transform: rotate(90deg);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
 }
 
 .modal-body {
-    padding: 30px;
-    max-height: 60vh;
+    padding: 30px 32px;
+    max-height: calc(90vh - 140px);
     overflow-y: auto;
 }
 
@@ -605,5 +729,157 @@ body {
     .modal-content {
         width: 95%;
         margin: 10% auto;
+    }
+}
+
+/* Print Styles - Transaction Receipt */
+@media print {
+    /* Hide everything by default */
+    body * {
+        visibility: hidden;
+    }
+    
+    /* Show only the transaction modal content */
+    #transaction-modal,
+    #transaction-modal * {
+        visibility: visible;
+    }
+    
+    /* Position the modal content at the top */
+    #transaction-modal {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: auto;
+        background: white;
+        padding: 0;
+        margin: 0;
+    }
+    
+    /* Hide modal header and buttons when printing */
+    #transaction-modal .modal-header,
+    #transaction-modal .modal-header-actions,
+    #transaction-modal .close-modal {
+        display: none !important;
+    }
+    
+    /* Style the transaction content for clean receipt */
+    #transaction-modal .modal-body {
+        padding: 20px 30px;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    /* Ensure good contrast for printing */
+    #transaction-modal .modal-body {
+        color: black !important;
+    }
+    
+    /* Style receipt header */
+    .receipt-header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #000;
+    }
+    
+    .receipt-header h3 {
+        font-size: 1.5rem;
+        color: black !important;
+        margin-bottom: 5px;
+    }
+    
+    .receipt-header p {
+        color: black !important;
+        font-size: 0.9rem;
+    }
+    
+    /* Style receipt sections */
+    .receipt-section {
+        margin-bottom: 20px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+    }
+    
+    .receipt-section h4 {
+        color: black !important;
+        font-size: 1rem;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 5px;
+    }
+    
+    /* Style receipt items table */
+    .receipt-items {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+    
+    .receipt-items th,
+    .receipt-items td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+        color: black !important;
+    }
+    
+    .receipt-items th {
+        background: #f5f5f5;
+        font-weight: 600;
+    }
+    
+    /* Style receipt totals */
+    .receipt-totals {
+        margin-top: 20px;
+        text-align: right;
+    }
+    
+    .receipt-totals .total-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 0;
+        color: black !important;
+    }
+    
+    .receipt-totals .grand-total {
+        border-top: 2px solid #000;
+        padding-top: 10px;
+        margin-top: 10px;
+        font-weight: 700;
+        font-size: 1.1rem;
+    }
+    
+    /* Page background */
+    body {
+        background: white;
+    }
+    
+    /* Receipt info rows */
+    .receipt-info .info-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 0;
+        color: black !important;
+    }
+    
+    .receipt-info .info-row span:first-child {
+        font-weight: 600;
+    }
+    
+    /* Receipt footer */
+    .receipt-footer {
+        margin-top: 30px;
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid #ddd;
+    }
+    
+    .receipt-footer p {
+        color: black !important;
+        margin: 5px 0;
+        font-size: 0.9rem;
     }
 }

@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aleja Blower - Sales Records</title>
     <link rel="stylesheet" href="../styles/sales.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="dashboard-container">
@@ -45,9 +46,20 @@
             <header class="header">
                 <div class="header-left">
                     <h1>Sales Records</h1>
+                    <p class="header-subtitle">View your sales transactions</p>
                 </div>
-                <div class="header-right">
-                    <div class="date-time" id="date-time"></div>
+                <div class="header-actions">
+                    <div class="user-profile">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="user-info">
+                            <span class="user-email" id="user-email">user@email.com</span>
+                            <div class="date-time-small">
+                                <span id="current-date"></span> • <span id="current-time"></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </header>
 
@@ -145,7 +157,12 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h2>Transaction Details</h2>
-                        <span class="close-modal">&times;</span>
+                        <div class="modal-header-actions">
+                            <button class="btn btn-primary btn-sm" onclick="printTransaction()">
+                                <i class="fas fa-print"></i> Print
+                            </button>
+                            <span class="close-modal">&times;</span>
+                        </div>
                     </div>
                     <div class="modal-body" id="transaction-details">
                         <!-- Transaction details will be loaded here -->
@@ -155,6 +172,6 @@
         </main>
     </div>
 
-    <script src="../scripts/sales.js"></script>
+    <script src="../scripts/sales.js?v=2"></script>
 </body>
 </html>

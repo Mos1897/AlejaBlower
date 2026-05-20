@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Auth check - ensure user is logged in
     if (!localStorage.getItem('userEmail')) {
         console.log('No user session found, redirecting to login');
-        window.location.href = 'login_page.html';
+        window.location.href = 'index.html';
         return;
     }
     console.log('User authenticated:', localStorage.getItem('userEmail'));
@@ -23,6 +23,15 @@ let stockProductId = null;
 
 // Initialize inventory page
 function initializeInventory() {
+    // Populate user email from localStorage
+    const userEmail = localStorage.getItem('userEmail');
+    if (userEmail) {
+        const userEmailElement = document.getElementById('user-email');
+        if (userEmailElement) {
+            userEmailElement.textContent = userEmail;
+        }
+    }
+
     // Navigation
     const navItems = document.querySelectorAll('.nav-item');
     navItems.forEach(item => {
@@ -566,7 +575,7 @@ function logout() {
     showMessage('You have been logged out successfully.', 'success');
     
     setTimeout(() => {
-        window.location.href = 'login_page.html';
+        window.location.href = 'index.html';
     }, 1500);
 }
 

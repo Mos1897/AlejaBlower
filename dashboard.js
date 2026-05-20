@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Auth check - ensure user is logged in
     if (!localStorage.getItem('userEmail')) {
         console.log('No user session found, redirecting to login');
-        window.location.href = '../html/login_page.html';
+        window.location.href = '../html/index.html';
         return;
     }
     console.log('User authenticated:', localStorage.getItem('userEmail'));
@@ -38,11 +38,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Initialize dashboard
 function initializeDashboard() {
+    // Populate user email from localStorage
+    const userEmail = localStorage.getItem('userEmail');
+
+    if (userEmail) {
+        const userEmailElement = document.getElementById('user-email');
+        if (userEmailElement) {
+            userEmailElement.textContent = userEmail;
+        }
+    }
+
     // Navigation
     const navItems = document.querySelectorAll('.nav-item');
+    console.log('Found nav items:', navItems.length);
     navItems.forEach(item => {
         item.addEventListener('click', function() {
             const page = this.getAttribute('data-page');
+            console.log('Navigating to:', page);
             navigateTo(page);
         });
     });
@@ -58,6 +70,8 @@ function initializeDashboard() {
 
 // Navigate to different pages
 function navigateTo(page) {
+    console.log('navigateTo called with page:', page);
+    
     // Remove active class from all nav items
     document.querySelectorAll('.nav-item').forEach(item => {
         item.classList.remove('active');
@@ -79,8 +93,13 @@ function navigateTo(page) {
         'reports': 'reports.html'
     };
 
+    console.log('Looking for page in map:', page, 'Found:', pages[page]);
+    
     if (pages[page]) {
+        console.log('Navigating to:', pages[page]);
         window.location.href = pages[page];
+    } else {
+        console.error('Page not found in navigation map:', page);
     }
 }
 
@@ -435,7 +454,7 @@ function logout() {
     
     // Redirect to login page after a short delay
     setTimeout(() => {
-        window.location.href = '../html/login_page.html';
+        window.location.href = '../html/index.html';
     }, 1500);
 }
 

@@ -6,7 +6,7 @@ let filteredProducts = [];
 // DOM ready
 document.addEventListener('DOMContentLoaded', function() {
     if (!localStorage.getItem('userEmail')) {
-        window.location.href = '../html/login_page.html';
+        window.location.href = '../html/index.html';
         return;
     }
 
@@ -18,6 +18,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Initialize POS
 function initializePOS() {
+    // Populate user email from localStorage
+    const userEmail = localStorage.getItem('userEmail');
+    if (userEmail) {
+        const userEmailElement = document.getElementById('user-email');
+        if (userEmailElement) {
+            userEmailElement.textContent = userEmail;
+        }
+    }
+
     const navItems = document.querySelectorAll('.nav-item');
     navItems.forEach(item => {
         item.addEventListener('click', function() {
@@ -62,7 +71,7 @@ function logout() {
     localStorage.removeItem('userName');
     sessionStorage.clear();
     showMessage('Logged out successfully', 'success');
-    setTimeout(() => window.location.href = '../html/login_page.html', 1500);
+    setTimeout(() => window.location.href = '../html/index.html', 1500);
 }
 
 // Load products (same API as products.html)

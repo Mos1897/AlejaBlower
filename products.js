@@ -21,6 +21,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Initialize products page
 function initializeProducts() {
+    // Populate user email from localStorage
+    const userEmail = localStorage.getItem('userEmail');
+    if (userEmail) {
+        const userEmailElement = document.getElementById('user-email');
+        if (userEmailElement) {
+            userEmailElement.textContent = userEmail;
+        }
+    }
+
     // Navigation
     const navItems = document.querySelectorAll('.nav-item');
     navItems.forEach(item => {
@@ -439,6 +448,6 @@ function logout() {
     sessionStorage.clear();
     showMessage('Logged out successfully', 'success');
     setTimeout(() => {
-        window.location.href = '../html/login_page.html';
+        window.location.href = '../html/index.html';
     }, 1500);
 }

@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Auth check - ensure user is logged in
     if (!localStorage.getItem('userEmail')) {
         console.log('No user session found, redirecting to login');
-        window.location.href = 'login_page.html';
+        window.location.href = 'index.html';
         return;
     }
     console.log('User authenticated:', localStorage.getItem('userEmail'));
@@ -24,6 +24,15 @@ let currentFilters = {
 
 // Initialize sales page
 function initializeSales() {
+    // Populate user email from localStorage
+    const userEmail = localStorage.getItem('userEmail');
+    if (userEmail) {
+        const userEmailElement = document.getElementById('user-email');
+        if (userEmailElement) {
+            userEmailElement.textContent = userEmail;
+        }
+    }
+
     // Navigation
     const navItems = document.querySelectorAll('.nav-item');
     navItems.forEach(item => {
@@ -125,22 +134,25 @@ function navigateTo(page) {
 // Logout function
 function logout() {
     localStorage.removeItem('userEmail');
-    window.location.href = 'login_page.html';
+    window.location.href = 'index.html';
+}
+
+// Print transaction receipt
+function printTransaction() {
+    window.print();
 }
 
 // Update date and time
 function updateDateTime() {
     const now = new Date();
-    const options = {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-    };
-    document.getElementById('date-time').textContent = now.toLocaleDateString('en-US', options);
+    const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+    
+    const dateEl = document.getElementById('current-date');
+    const timeEl = document.getElementById('current-time');
+    
+    if (dateEl) dateEl.textContent = now.toLocaleDateString('en-US', dateOptions);
+    if (timeEl) timeEl.textContent = now.toLocaleTimeString('en-US', timeOptions);
 }
 
 // Load sales data from API
@@ -302,34 +314,38 @@ async function viewTransactionDetails(saleId) {
         const modalBody = document.getElementById('transaction-details');
 
         modalBody.innerHTML = `
-            <div class="transaction-info">
-                <h3>Transaction #${sale.transaction_id}</h3>
-                <div class="transaction-meta">
-                    <div class="meta-item">
-                        <div class="meta-label">Date & Time</div>
-                        <div class="meta-value">${formatDateTime(sale.created_at)}</div>
+            <div class="receipt-header">
+                <h3>Aleja Blower</h3>
+                <p>Industrial Fan Solutions</p>
+                <p>Laundry Management System</p>
+            </div>
+            
+            <div class="receipt-section">
+                <h4>Transaction Details</h4>
+                <div class="receipt-info">
+                    <div class="info-row">
+                        <span>Transaction #:</span>
+                        <span>${sale.transaction_id}</span>
                     </div>
-                    <div class="meta-item">
-                        <div class="meta-label">Payment Method</div>
-                        <div class="meta-value">${formatPaymentMethod(sale.payment_method)}</div>
+                    <div class="info-row">
+                        <span>Date & Time:</span>
+                        <span>${formatDateTime(sale.created_at)}</span>
                     </div>
-                    <div class="meta-item">
-                        <div class="meta-label">Items Count</div>
-                        <div class="meta-value">${sale.items?.length || 0}</div>
-                    </div>
-                    <div class="meta-item">
-                        <div class="meta-label">Total Amount</div>
-                        <div class="meta-value">₱${parseFloat(sale.total_amount).toFixed(2)}</div>
+                    <div class="info-row">
+                        <span>Payment Method:</span>
+                        <span>${formatPaymentMethod(sale.payment_method)}</span>
                     </div>
                 </div>
+            </div>
 
+            <div class="receipt-section">
                 <h4>Items Purchased</h4>
-                <table class="items-table">
+                <table class="receipt-items">
                     <thead>
                         <tr>
                             <th>Product</th>
-                            <th>Quantity</th>
-                            <th>Unit Price</th>
+                            <th>Qty</th>
+                            <th>Price</th>
                             <th>Total</th>
                         </tr>
                     </thead>
@@ -342,16 +358,32 @@ async function viewTransactionDetails(saleId) {
                                 <td>₱${parseFloat(item.total_price).toFixed(2)}</td>
                             </tr>
                         `).join('') || '<tr><td colspan="4">No items found</td></tr>'}
-                        <tr class="total-row">
-                            <td colspan="3"><strong>Total</strong></td>
-                            <td><strong>₱${parseFloat(sale.total_amount).toFixed(2)}</strong></td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
+
+            <div class="receipt-totals">
+                <div class="total-row">
+                    <span>Subtotal:</span>
+                    <span>₱${parseFloat(sale.total_amount).toFixed(2)}</span>
+                </div>
+                <div class="total-row">
+                    <span>Tax (0%):</span>
+                    <span>₱0.00</span>
+                </div>
+                <div class="total-row grand-total">
+                    <span>Total Amount:</span>
+                    <span>₱${parseFloat(sale.total_amount).toFixed(2)}</span>
+                </div>
+            </div>
+
+            <div class="receipt-footer">
+                <p>Thank you for your business!</p>
+                <p>This is an official receipt from Aleja Blower</p>
+            </div>
         `;
 
-        modal.style.display = 'block';
+        modal.style.display = 'flex';
 
     } catch (error) {
         console.error('Error loading transaction details:', error);

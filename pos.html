@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aleja Blower - POS</title>
     <link rel="stylesheet" href="../styles/pos.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="dashboard-container">
@@ -45,11 +46,19 @@
             <header class="header">
                 <div class="header-left">
                     <h1>Point of Sale</h1>
+                    <p class="header-subtitle">Process sales and manage transactions</p>
                 </div>
-                <div class="header-right">
-                    <div class="date-time">
-                        <span id="current-date"></span>
-                        <span id="current-time"></span>
+                <div class="header-actions">
+                    <div class="user-profile">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="user-info">
+                            <span class="user-email" id="user-email">user@email.com</span>
+                            <div class="date-time-small">
+                                <span id="current-date"></span> • <span id="current-time"></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </header>
@@ -132,6 +141,6 @@
         </main>
     </div>
 
-    <script src="../scripts/pos.js"></script>
+    <script src="../scripts/pos.js?v=2"></script>
 </body>
 </html>
