@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.0.1/css/all.min.css">
+    <link rel="stylesheet" href="../styles/style.css?v=1.2">
+    <title>Aleja Blower Login</title>
+</head>
+<body>
+
+    <div class = "container"  id = "container">
+        <div class = "form-container sign-up">
+            <form>
+            <h1>Create Account</h1>
+            
+            <span>Use your active email address</span>
+            <input type="text" placeholder="Name" id="signup-name">
+            <input type="text" placeholder="Email" id="signup-email">
+            <div class="email-validation" id="signup-email-validation">
+                <i class="fas fa-times"></i>
+                <span>Please enter a valid email address</span>
+            </div>
+            <div class="password-container">
+                <input type="password" placeholder="Password" id="signup-password">
+                <i class="fas fa-eye toggle-password" id="toggle-signup-password"></i>
+            </div>
+            <div class="password-match-indicator" id="password-match-indicator">
+                <i class="fas fa-times"></i>
+                <span>Passwords do not match</span>
+            </div>
+            <div class="password-container">
+                <input type="password" placeholder="Confirm Password" id="confirm-password">
+                <i class="fas fa-eye toggle-password" id="toggle-confirm-password"></i>
+            </div>
+            <div class="password-requirements">
+                <div class="requirement" id="length-req">
+                    <i class="fas fa-times"></i>
+                    <span>12-16 characters long</span>
+                </div>
+                <div class="requirement" id="uppercase-req">
+                    <i class="fas fa-times"></i>
+                    <span>At least 1 uppercase letter</span>
+                </div>
+                <div class="requirement" id="lowercase-req">
+                    <i class="fas fa-times"></i>
+                    <span>At least 1 lowercase letter</span>
+                </div>
+                <div class="requirement" id="number-req">
+                    <i class="fas fa-times"></i>
+                    <span>At least 1 number</span>
+                </div>
+                <div class="requirement" id="special-req">
+                    <i class="fas fa-times"></i>
+                    <span>At least 1 special character</span>
+                </div>
+            </div>
+            <button>Sign Up</button>
+            
+            </form> 
+        </div>
+        <div class = "form-container sign-in">
+            <form>
+            <h1>Sign In</h1>
+            
+            <span>Use your registered email address</span>
+            <input type="text" placeholder="Email" id="signin-email">
+            <div class="email-validation" id="signin-email-validation">
+                <i class="fas fa-times"></i>
+                <span>Please enter a valid email address</span>
+            </div>
+            <div class="password-container">
+                <input type="password" placeholder="Password" id="signin-password">
+                <i class="fas fa-eye toggle-password" id="toggle-signin-password"></i>
+            </div>
+            <div class="remember-me-container">
+                <input type="checkbox" id="remember-me">
+                <label for="remember-me">Remember Me</label>
+            </div>
+            <a href="forgot_password.html"> Forgot your password?</a>
+            <button>Sign in</button>
+            
+          </form>  
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Welcome Back!</h1>
+                    <p>Enter your registered email <br>to access the system</p>
+                    <button class="hidden" id="login"> Sign In</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>Sign Up now</h1>
+                    <p>dont have an account? <br> sign up here!</p>
+                    <button class="hidden" id="register"> Sign Up</button>
+                </div>
+            </div>
+        </div>
+
+        
+
+
+    </div>
+    
+    <script src="../scripts/login_page_script.js"></script>
+</body>
+</html>
